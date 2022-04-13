@@ -4,12 +4,15 @@ import {
   Delete,
   Get,
   HttpException,
+  Param,
   Patch,
   Post,
   Put,
+  Res,
   UseFilters,
 } from '@nestjs/common';
 import { HttpExceptionFilter } from 'src/http-exception.filter';
+import { Response } from 'express';
 @Controller('cats')
 export class CatsController {
   constructor(private readonly catsService: CatsService) { }
@@ -21,10 +24,11 @@ export class CatsController {
   }
 
   @Get(':id')
-  getOneCat() {
+  getOneCat(@Res({ passthrough: true }) res: Response, @Param('id') id) {
+    console.log(res);
+    console.log(id);
     return 'one cat';
   }
-
   @Post()
   createCat() {
     return 'create cat';
