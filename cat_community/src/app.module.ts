@@ -10,6 +10,7 @@ import * as mongoose from 'mongoose';
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://localhost:27017'),
+    // .env 파일 사용가능하게 모듈 추가
     ConfigModule.forRoot(),
     CatsModule,
     AuthModule,
