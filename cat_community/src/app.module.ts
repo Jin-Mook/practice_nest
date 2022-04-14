@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { CatsModule } from './cats/cats.module';
+import { AuthModule } from './auth/auth.module';
 import * as mongoose from 'mongoose';
 
 @Module({
@@ -11,6 +12,7 @@ import * as mongoose from 'mongoose';
     MongooseModule.forRoot('mongodb://localhost:27017'),
     ConfigModule.forRoot(),
     CatsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
