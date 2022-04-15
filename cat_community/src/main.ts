@@ -3,9 +3,11 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import * as expressBasicAuth from 'express-basic-auth';
+import * as path from 'path';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useGlobalPipes(new ValidationPipe()); // class-validation 수행 가능
   // 스웨거를 아무나 볼 수 없도록 암호를 걸어준다. 이때 express-basic-auth패키지를 이용한다.
   app.use(
@@ -17,6 +19,10 @@ async function bootstrap() {
       },
     }),
   );
+
+  app.useStaticAssets(path.join(__dirname, './common', 'uploads'), {
+    prefix: '/media',
+  });
 
   const config = new DocumentBuilder()
     .setTitle('cat example')
